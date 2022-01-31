@@ -1,4 +1,4 @@
-package patchinator
+package gopatchinator
 
 import (
 	"encoding/json"
