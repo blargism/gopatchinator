@@ -8,13 +8,14 @@ import (
 )
 
 type Op struct {
-	Op    string `json:"op"`
-	Path  string `json:"path"`
-	Value string `json:"value"`
+	Op    string      `json:"op"`
+	Path  string      `json:"path"`
+	Value interface{} `json:"value"`
 }
 
 type Patch []Op
 
+// PatchRule defines a rule to evaluate if a patch is acceptable or not
 type PatchRule struct {
 	Op          []string
 	rex         *regexp.Regexp
@@ -23,8 +24,10 @@ type PatchRule struct {
 	ShouldAllow func(path string, value interface{}) bool
 }
 
+// PatchRules is a slice of PatchRule
 type PatchRules []PatchRule
 
+// Patchinator is the interface that allows the user
 type Patchinator interface {
 	IsWhitelist(whitelist bool)
 	Run(patch []byte) error
